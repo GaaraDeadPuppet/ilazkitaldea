@@ -328,16 +328,16 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$
       $scope.respuesta = data.records; // assign  $scope.persons here as promise is resolved here 
       
       console.log($scope.respuesta);
-      console.log($scope.respuesta.toString() === '"OK"');
-      console.log($scope.respuesta.toString() === '"NO"');
+      console.log($scope.respuesta[0].login.toString() === 'OK');
+      console.log($scope.respuesta[0].login.toString() === 'NO');
 
-      console.log($scope.respuesta[0].hermano);
+      console.log($scope.respuesta[0].login);
 
       $login=$scope.respuesta[0].login;
       $hermano=$scope.respuesta[0].hermano;
 
       console.log($login);
-      if ($login == '"OK"') {
+      if ($login == 'OK') {
         $window.location.reload();
       } else {
         localStorage.removeItem("user");
