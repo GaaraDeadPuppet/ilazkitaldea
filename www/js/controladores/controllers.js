@@ -1,10 +1,9 @@
-
 //#############################################################################################//
 //###################################### proximasActividades ##################################//
 //#############################################################################################//
 
-arranque.controller('proximasActividades',function($scope,$http,$filter,$window,$ionicLoading){
-      
+arranque.controller('proximasActividades', function ($scope, $http, $filter, $window, $ionicLoading) {
+
   //ABRIR CARGADO
 
   $ionicLoading.show();
@@ -19,18 +18,18 @@ arranque.controller('proximasActividades',function($scope,$http,$filter,$window,
 
     //FUNCIONES
 
-    $scope.comenzar=function(id_comenzar){
-      filtro_actividades=id_comenzar;
+    $scope.comenzar = function (id_comenzar) {
+      filtro_actividades = id_comenzar;
       localStorage.setItem("filtro_actividades", filtro_actividades);
-      console.log("clicado: "+filtro_actividades);
-      if(localStorage.getItem('user')){
+      console.log("clicado: " + filtro_actividades);
+      if (localStorage.getItem('user')) {
         $window.open("#/tab/actividadEspecificaregistrado", "_self");
-      }else{
+      } else {
         $window.open("#/tab/actividadEspecifica", "_self");
       }
     };
 
-    $scope.atras=function(){
+    $scope.atras = function () {
 
       console.log("borrado");
 
@@ -39,9 +38,13 @@ arranque.controller('proximasActividades',function($scope,$http,$filter,$window,
 
       localStorage.clear();
 
-      if(user){localStorage.setItem('user',user)}
-      if(actividad_apuntada){localStorage.setItem('actividad_apuntada',actividad_apuntada)}
-      
+      if (user) {
+        localStorage.setItem('user', user)
+      }
+      if (actividad_apuntada) {
+        localStorage.setItem('actividad_apuntada', actividad_apuntada)
+      }
+
       /*
       if(localStorage.getItem("user")) {
         console.log(localStorage.getItem('user'));
@@ -66,29 +69,31 @@ arranque.controller('proximasActividades',function($scope,$http,$filter,$window,
 //###################################### actividadEspecifica ##################################//
 //#############################################################################################//
 
-arranque.controller('actividadEspecifica',function($scope,$http,$filter,$ionicLoading,$ionicPopup,$window){
+arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $ionicLoading, $ionicPopup, $window) {
 
   //ABRIR CARGADO
 
   $ionicLoading.show();
 
   //CARGA
-    
+
   $http.get("http://www.ilazkitaldea.com/app/php/descripcion_actividades.php").then(function (response) {
-    
-    if(localStorage.getItem("filtro_actividades")!=null){
+
+    if (localStorage.getItem("filtro_actividades") != null) {
       var filtro_actividades = localStorage.getItem("filtro_actividades");
-    }else{
-      filtro_actividades="";
+    } else {
+      filtro_actividades = "";
     }
 
     $scope.myData = response.data.records;
-    $scope.especifico = $filter('filter')($scope.myData, {id:filtro_actividades});
+    $scope.especifico = $filter('filter')($scope.myData, {
+      id: filtro_actividades
+    });
 
     console.log(filtro_actividades);
     console.log($scope.especifico);
 
-    $scope.atras=function(){
+    $scope.atras = function () {
 
       console.log("borrado");
 
@@ -96,144 +101,156 @@ arranque.controller('actividadEspecifica',function($scope,$http,$filter,$ionicLo
       var actividad_apuntada = localStorage.getItem('actividad_apuntada');
 
       localStorage.clear();
-      
-      if(user){localStorage.setItem('user',user)}
-      if(actividad_apuntada){localStorage.setItem('actividad_apuntada',actividad_apuntada)}
+
+      if (user) {
+        localStorage.setItem('user', user)
+      }
+      if (actividad_apuntada) {
+        localStorage.setItem('actividad_apuntada', actividad_apuntada)
+      }
 
       $scope.link = "#/tab/home.html"
 
     };
 
-    $scope.contador=$scope.especifico[0].gustar;
-    $scope.id=$scope.especifico[0].id;
+    $scope.contador = $scope.especifico[0].gustar;
+    $scope.id = $scope.especifico[0].id;
 
-    var contador=$scope.contador;
-    contador=parseInt(contador);
+    var contador = $scope.contador;
+    contador = parseInt(contador);
 
-    var id=$scope.id;
-    id=parseInt(id);
+    var id = $scope.id;
+    id = parseInt(id);
 
     //FUNCIONES 
 
-    $scope.cargarcontador=function(){
-        contador=contador+1;
-        console.log(contador);
-        $scope.contador=contador;
+    $scope.cargarcontador = function () {
+      contador = contador + 1;
+      console.log(contador);
+      $scope.contador = contador;
     };
 
-    $scope.sendData=function(){
+    $scope.sendData = function () {
       console.log("enviados");
 
       Object.toparams = function ObjecttoParams(obj) {
         var p = [];
         for (var key in obj) {
-            p.push(key + '=' + encodeURIComponent(obj[key]));
-        }
-        return p.join('&');
-        };
-
-        var req = {
-            method: 'POST',
-            url: "http://www.ilazkitaldea.com/app/php/guardar_corazon.php",
-            data: {'gustar':contador,'id':id},
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        };
-
-        $http(req).
-        success(function(data, status, headers, config) 
-        {
-          console.log("ok");
-        }).
-        error(function(data, status, headers, config) 
-        {
-          console.log("error");
-        });
-    };
-
-    $scope.apuntar=function(){
-      console.log("enviados");
-
-      var user=localStorage.getItem("user");;
-      var activity=filtro_actividades;
-
-      Object.toparams = function ObjecttoParams(obj) {
-        var p = [];
-        for (var key in obj) {
-            p.push(key + '=' + encodeURIComponent(obj[key]));
+          p.push(key + '=' + encodeURIComponent(obj[key]));
         }
         return p.join('&');
       };
 
       var req = {
-          method: 'POST',
-          url: "http://www.ilazkitaldea.com/app/php/guardar_inscripcion.php",
-          data: {'usuario':user,'actividad':activity},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        method: 'POST',
+        url: "http://www.ilazkitaldea.com/app/php/guardar_corazon.php",
+        data: {
+          'gustar': contador,
+          'id': id
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       };
 
       $http(req).
-      success(function(data, status, headers, config) 
-      {
+      success(function (data, status, headers, config) {
         console.log("ok");
       }).
-      error(function(data, status, headers, config) 
-      {
+      error(function (data, status, headers, config) {
+        console.log("error");
+      });
+    };
+
+    $scope.apuntar = function () {
+      console.log("enviados");
+
+      var user = localStorage.getItem("user");;
+      var activity = filtro_actividades;
+
+      Object.toparams = function ObjecttoParams(obj) {
+        var p = [];
+        for (var key in obj) {
+          p.push(key + '=' + encodeURIComponent(obj[key]));
+        }
+        return p.join('&');
+      };
+
+      var req = {
+        method: 'POST',
+        url: "http://www.ilazkitaldea.com/app/php/guardar_inscripcion.php",
+        data: {
+          'usuario': user,
+          'actividad': activity
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      };
+
+      $http(req).
+      success(function (data, status, headers, config) {
+        console.log("ok");
+      }).
+      error(function (data, status, headers, config) {
         console.log("error");
       });
 
       // Parse the JSON stored in allEntriesP
       var existingEntries = JSON.parse(localStorage.getItem("actividad_apuntada"));
-      if(existingEntries == null) existingEntries = [];
+      if (existingEntries == null) existingEntries = [];
       var entryTitle = activity;
       var entry = {
-          "title": entryTitle
+        "title": entryTitle
       };
       localStorage.setItem("entry", JSON.stringify(entry));
       // Save allEntries back to local storage
       existingEntries.push(entry);
       localStorage.setItem("actividad_apuntada", JSON.stringify(existingEntries));
 
-      console.log("actividad: "+activity);
-      console.log("usuario: "+user);
+      console.log("actividad: " + activity);
+      console.log("usuario: " + user);
 
     };
 
-    if(localStorage.getItem('user')&&localStorage.getItem("actividad_apuntada")){
-    retrievedObject = localStorage.getItem('actividad_apuntada');
-    actividades=JSON.parse(retrievedObject);
+    if (localStorage.getItem('user') && localStorage.getItem("actividad_apuntada")) {
+      retrievedObject = localStorage.getItem('actividad_apuntada');
+      actividades = JSON.parse(retrievedObject);
 
-    var lognitud=actividades.length;
-    console.log(actividades);
+      var lognitud = actividades.length;
+      console.log(actividades);
 
-    
-    console.log(actividades);
-    
-    for(i=0;i<lognitud;i++){
-      console.log(actividades[i]['title']+" = "+filtro_actividades);
-      if(actividades[i]['title']==filtro_actividades){
-        console.log("si");
-        esconder=false;
-        break;
-      }else{
-        esconder=true;
+
+      console.log(actividades);
+
+      for (i = 0; i < lognitud; i++) {
+        console.log(actividades[i]['title'] + " = " + filtro_actividades);
+        if (actividades[i]['title'] == filtro_actividades) {
+          console.log("si");
+          esconder = false;
+          break;
+        } else {
+          esconder = true;
+        }
       }
+
+    } else {
+      esconder = true;
     }
 
-    }else{
-      esconder=true;
-    }
-
-    $scope.apuntado = function(){
+    $scope.apuntado = function () {
       return esconder;
     }
 
-    $scope.showAlert = function() {
+    $scope.showAlert = function () {
       var alertPopup = $ionicPopup.confirm({
         title: 'Condiciones de uso',
-        template: '<textarea></textarea>'
+        template: '<textarea>DECLARO:1.Que todos los datos expresados en esta ficha son ciertos.2.Que autorizo al/ a la menor, a participar en el campamento organizado por ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) y hago extensiva esta autorización en caso de máxima urgencia, con conocimiento y prescripción facultativa, a tomar decisiones medico quirúrgicas oportunas en caso de que mi localización haya sido imposible.3.torizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) la captación de imágenes, tanto en movimiento como estáticas, y sonido, ya su utilización tanto en su página web, blog como en publicaciones de la asociación o cualquierotro fin no lucrativo o de información.4.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a fijar, reproducir, comunicar y a modificar por todo medio técnico las fotografías y vide os realizados en el marco de la presente autorización.5.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a añadir mis datos personales o los de mi representado, como son el nombre y apellidos, dirección postal, dirección de correo electrónico y teléfonos a una base de datos cuyo fines el de informar sobre similares acciones futuras o el envío de una recopilación de imágenes.6.ILAZKI AISIALDI TALDEA prohíbe expresamente, una explotación de las fotografías susceptibles de afectar a la vida privada del/de lamenor, y una difusión en todo soporte de carácter pornográfico, xenófobo, violento o ilícito. De igual manera, la persona ins crita no estávinculada a ningún contrato exclusivo sobre la utilización de su imagen o su nombre.7.ILAZKI AISIALDI TALDEA destruirá los datos personales y los de mi representado legalmente una vez haya finalizado el campamento ocolonias para los que han sido re cogidos.</textarea>'
       });
-        alertPopup.then(function(res) {
-        $window.open("#/tab/home");
+      alertPopup.then(function (res) {
+        if (res) {
+          $window.open("#/tab/home");
+        };
       });
     };
 
@@ -260,131 +277,146 @@ arranque.controller('actividadEspecifica',function($scope,$http,$filter,$ionicLo
 //###################################### inicio ###############################################//
 //#############################################################################################//
 
-arranque.controller('HomeTabCtrl', function($scope) {
+arranque.controller('HomeTabCtrl', function ($scope) {
   console.log('HomeTabCtrl');
 })
 
-arranque.controller('homelogedcontrll', function($scope) {
-  $scope.data=({'user':localStorage.getItem("user")});
+arranque.controller('homelogedcontrll', function ($scope) {
+  $scope.data = ({
+    'user': localStorage.getItem("user")
+  });
 })
 
 //#############################################################################################//
 //###################################### inicio ###############################################//
 //#############################################################################################//
 
-arranque.controller('LoginCtrl', function($scope,$http,$window,$ionicPopup) {
-    
-    $scope.data = {};
- 
-    $scope.login=function(){
-        console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
-       
-        localStorage.setItem("user", $scope.data.username);
-        localStorage.setItem("pw", $scope.data.password);
+arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup) {
 
-        console.log("enviados");
+  $scope.data = {};
 
-        Object.toparams = function ObjecttoParams(obj) {
-          var p = [];
-          for (var key in obj) {
-              p.push(key + '=' + encodeURIComponent(obj[key]));
-          }
-          return p.join('&');
-          };
+  $scope.login = function () {
+    console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
 
-          var req = {
-              method: 'POST',
-              url: "http://www.ilazkitaldea.com/app/php/comprobar_usuario.php",
-              data: {'usuario':$scope.data.username,'contrasena':$scope.data.password},
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          };
+    localStorage.setItem("user", $scope.data.username);
+    localStorage.setItem("pw", $scope.data.password);
 
-          $http(req).
-          success(function (data, status, headers, config) {
-              $scope.respuesta = data; // assign  $scope.persons here as promise is resolved here 
-              console.log($scope.respuesta);
-              console.log($scope.respuesta.toString()==='"OK"');
-              console.log($scope.respuesta.toString()==='"NO"');
-              if($scope.respuesta.toString()=='"OK"'){
-                $window.location.reload();
-              }else{
-                localStorage.removeItem("user");
-                var alertPopup = $ionicPopup.alert({
-                  title: 'Login',
-                  template: 'Usuario o contraseña incorrecta, si el error continua contacte con algun administrador. 622015862/info@ilazkitaldea.com'
-                });
-              }
-          }).error(function (data, status, headers, config) {
-              $scope.status = status;
-              console.log($scope.persons);
-          });
+    console.log("enviados");
+
+    Object.toparams = function ObjecttoParams(obj) {
+      var p = [];
+      for (var key in obj) {
+        p.push(key + '=' + encodeURIComponent(obj[key]));
+      }
+      return p.join('&');
+    };
+
+    var req = {
+      method: 'POST',
+      url: "http://www.ilazkitaldea.com/app/php/comprobar_usuario.php",
+      data: {
+        'usuario': $scope.data.username,
+        'contrasena': $scope.data.password
+      },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+
+    $http(req).
+    success(function (data, status, headers, config) {
+      $scope.respuesta = data; // assign  $scope.persons here as promise is resolved here 
+      console.log($scope.respuesta);
+      console.log($scope.respuesta.toString() === '"OK"');
+      console.log($scope.respuesta.toString() === '"NO"');
+      if ($scope.respuesta.toString() == '"OK"') {
+        $window.location.reload();
+      } else {
+        localStorage.removeItem("user");
+        var alertPopup = $ionicPopup.alert({
+          title: 'Login',
+          template: 'Usuario o contraseña incorrecta, si el error continua contacte con algun administrador. 622015862/info@ilazkitaldea.com'
+        });
+      }
+    }).error(function (data, status, headers, config) {
+      $scope.status = status;
+      console.log($scope.persons);
+    });
 
 
-      };
+  };
 })
 
 //#############################################################################################//
 //###################################### loged ################################################//
 //#############################################################################################//
 
-arranque.controller('loged', function() {
+arranque.controller('loged', function () {
 
-  
+
 })
 
 //#############################################################################################//
 //###################################### proximasActividades ##################################//
 //#############################################################################################//
 
-arranque.controller('misActividades',function($scope,$http,$filter,$window,$ionicLoading){
-      
+arranque.controller('misActividades', function ($scope, $http, $filter, $window, $ionicLoading) {
+
   //ABRIR CARGADO
 
   $ionicLoading.show();
 
   //CARGA
 
-  usuario=localStorage.getItem("user");
+  usuario = localStorage.getItem("user");
 
   var req = {
-      method: 'POST',
-      url: "http://www.ilazkitaldea.com/app/php/actividades_inscritas.php",
-      data: {'usuario':usuario},
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    method: 'POST',
+    url: "http://www.ilazkitaldea.com/app/php/actividades_inscritas.php",
+    data: {
+      'usuario': usuario
+    },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   };
 
   $http(req).
   success(function (data, status, headers, config) {
-      $scope.respuesta = data; // assign  $scope.persons here as promise is resolved here 
-      console.log($scope.respuesta);
+    $scope.respuesta = data; // assign  $scope.persons here as promise is resolved here 
+    console.log($scope.respuesta);
   }).error(function (data, status, headers, config) {
-      $scope.status = status;
-      console.log($scope.persons);
+    $scope.status = status;
+    console.log($scope.persons);
   });
 
-  $scope.atras=function(){
+  $scope.atras = function () {
 
-      console.log("borrado");
+    console.log("borrado");
 
-      var user = localStorage.getItem('user');
-      var actividad_apuntada = localStorage.getItem('actividad_apuntada');
+    var user = localStorage.getItem('user');
+    var actividad_apuntada = localStorage.getItem('actividad_apuntada');
 
-      localStorage.clear();
+    localStorage.clear();
 
-      if(user){localStorage.setItem('user',user)}
-      if(actividad_apuntada){localStorage.setItem('actividad_apuntada',actividad_apuntada)}
-      
-      /*
-      if(localStorage.getItem("user")) {
-        console.log(localStorage.getItem('user'));
-        $scope.link = "#/tab/homeregistrado.html";
-      }else{
-        console.log("nada")
-        $scope.link = "#/tab/home.html"
-      }
-      */
+    if (user) {
+      localStorage.setItem('user', user)
+    }
+    if (actividad_apuntada) {
+      localStorage.setItem('actividad_apuntada', actividad_apuntada)
+    }
 
+    /*
+    if(localStorage.getItem("user")) {
+      console.log(localStorage.getItem('user'));
+      $scope.link = "#/tab/homeregistrado.html";
+    }else{
+      console.log("nada")
       $scope.link = "#/tab/home.html"
+    }
+    */
+
+    $scope.link = "#/tab/home.html"
   };
   //CERRAR CARGA
 
