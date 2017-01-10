@@ -291,7 +291,7 @@ arranque.controller('homelogedcontrll', function ($scope) {
 //###################################### inicio ###############################################//
 //#############################################################################################//
 
-arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup) {
+arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$filter) {
 
   $scope.data = {};
 
@@ -325,10 +325,18 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup) 
 
     $http(req).
     success(function (data, status, headers, config) {
-      $scope.respuesta = data; // assign  $scope.persons here as promise is resolved here 
+      $scope.respuesta = data.records; // assign  $scope.persons here as promise is resolved here 
+      
       console.log($scope.respuesta);
       console.log($scope.respuesta.toString() === '"OK"');
       console.log($scope.respuesta.toString() === '"NO"');
+
+      $scope.respuesta_parcial = $filter('filter')($scope.respuesta, {
+      login: "NO"
+      });
+
+      console.log($scope.respuesta_parcial[0].hermano);
+
       if ($scope.respuesta.toString() == '"OK"') {
         $window.location.reload();
       } else {
