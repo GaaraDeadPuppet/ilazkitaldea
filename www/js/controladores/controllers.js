@@ -337,7 +337,10 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$
 
       console.log($scope.respuesta_parcial[0].hermano);
 
-      if ($scope.respuesta.toString() == '"OK"') {
+      $login=$scope.respuesta_parcial[0].login;
+      $hermano=$scope.respuesta_parcial[0].hermano;
+
+      if ($login == '"OK"') {
         $window.location.reload();
       } else {
         localStorage.removeItem("user");
