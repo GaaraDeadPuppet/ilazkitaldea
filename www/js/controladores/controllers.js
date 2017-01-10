@@ -331,15 +331,12 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$
       console.log($scope.respuesta.toString() === '"OK"');
       console.log($scope.respuesta.toString() === '"NO"');
 
-      $scope.respuesta_parcial = $filter('filter')($scope.respuesta, {
-      login: "NO"
-      });
+      console.log($scope.respuesta[0].hermano);
 
-      console.log($scope.respuesta_parcial[0].hermano);
+      $login=$scope.respuesta[0].login;
+      $hermano=$scope.respuesta[0].hermano;
 
-      $login=$scope.respuesta_parcial[0].login;
-      $hermano=$scope.respuesta_parcial[0].hermano;
-
+      console.log($login);
       if ($login == '"OK"') {
         $window.location.reload();
       } else {
