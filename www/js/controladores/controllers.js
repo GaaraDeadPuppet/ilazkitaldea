@@ -340,10 +340,12 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$
 
       $login=$scope.respuesta[0].login;
       $hermano=$scope.respuesta[0].hermano;
+ $usuario=$scope.respuesta[0].nombre;
 
       console.log($login);
       if ($login == 'OK') {
         localStorage.setItem("hermano", $hermano);
+         localStorage.setItem('user', $usuario);
         $window.location.reload();
       } else {
         localStorage.removeItem("user");
