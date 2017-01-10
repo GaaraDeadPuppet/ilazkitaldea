@@ -228,13 +228,12 @@ arranque.controller('actividadEspecifica',function($scope,$http,$filter,$ionicLo
     }
 
     $scope.showAlert = function() {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Inscripcion',
-        template: 'Gracias por apuntarte a la actividad.'
+      var alertPopup = $ionicPopup.confirm({
+        title: 'Condiciones de uso',
+        template: '<textarea></textarea>'
       });
         alertPopup.then(function(res) {
-        console.log('Apuntado');
-        $window.open("#/tab/home", "_self");
+        $window.open("#/tab/home");
       });
     };
 
