@@ -409,12 +409,14 @@ arranque.controller('misActividades', function ($scope, $http, $filter, $window,
     console.log("borrado");
 
     var user = localStorage.getItem('user');
+    var hermano = localStorage.getItem('hermano');
     var actividad_apuntada = localStorage.getItem('actividad_apuntada');
 
     localStorage.clear();
 
     if (user) {
       localStorage.setItem('user', user)
+      localStorage.setItem('hermano', hermano);
     }
     if (actividad_apuntada) {
       localStorage.setItem('actividad_apuntada', actividad_apuntada)
