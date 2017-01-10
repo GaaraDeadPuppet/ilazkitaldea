@@ -249,7 +249,7 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
       });
       alertPopup.then(function (res) {
         if (res) {
-          $window.open("#/tab/home");
+         $window.location.reload();
         };
       });
     };
