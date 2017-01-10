@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<link href="http://code.ionicframework.com/1.0.0/css/ionic.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<!--<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>-->
+		<script src="http://code.ionicframework.com/1.0.0/js/ionic.bundle.js"></script>
+		<!-- include the javascript app.js source file -->
+		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+		
+		<script src="js/modulos/module.js"></script>
+		<script src="js/controladores/controllers.js"></script>
+		<script src="js/directivas/directive.js"></script>
+		<script src="js/configuraciones/config.js"></script>
+		<script src="js/app.js"></script>
+
+
+</head>
+<body ng-app="arranque">
+
+		<ion-nav-bar class="bar-positive">
+			<!--<ion-nav-back-button>
+			</ion-nav-back-button>-->
+		</ion-nav-bar>
+						 
+		<ion-nav-view>
+			
+		</ion-nav-view>
+
+<!-- ########################################################################################################################################## -->
+
+<!-- ####################################################### TABS DE MENU ##################################################################### -->
+
+		<script id="templates/tabs.html" type="text/ng-template">
+			<ion-tabs class="tabs-icon-top tabs-positive">
+
+				<ion-tab title="INICIO" icon="ion-home" href="#/tab/home">
+					<ion-nav-view name="home-tab"></ion-nav-view>
+				</ion-tab>
+
+				<ion-tab title="INFORMACION" icon="ion-ios-information" href="#/tab/about">
+					<ion-nav-view name="about-tab"></ion-nav-view>
+				</ion-tab>
+
+				<ion-tab title="CONTACTO" icon="ion-ios-world" ui-sref="tabs.contact">
+					<ion-nav-view name="contact-tab"></ion-nav-view>
+				</ion-tab>
+
+			</ion-tabs>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+
+
+
+
+
+<!-- ####################################################### MENU INICIAL ##################################################################### -->
+
+		<script id="templates/home.html" type="text/ng-template">
+			<ion-view view-title="ILAZKI TALDEA">
+				<ion-content>
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#/tab/proximasActividades">Proximas actividades</a>
+					</p>
+					<ion-item class="item-divider item-positive">Para acceder a mas opciones identificate:</ion-item>
+						<div ng-controller="LoginCtrl">
+						<div class="list list-inset" >
+							<label class="item item-input">
+									<input type="text" placeholder="Usuario" ng-model="data.username">
+							</label>
+							<label class="item item-input">
+									<input type="password" placeholder="Contraseña" ng-model="data.password">
+							</label>
+						</div>
+						<button class="button button-block button-calm" ng-click="login()">IDENTIFICATE</button>
+
+						<div class="list list-inset" >
+							<label class="item item-input">
+									Usuario: Nombre del participante.
+							</label>
+							<label class="item item-input">
+									Contraseña: Apellido del participante.
+							</label>
+						</div>
+
+					</div>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- /////////////////////////////////////////////////////// MENU INICIAL REGISTRADO /////////////////////////////////////////////// -->
+
+		<script id="templates/homeregistrado.html" type="text/ng-template">
+			<ion-view view-title="ILAZKI TALDEA" ng-controller="homelogedcontrll">
+				<ion-content>
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#/tab/proximasActividades">Proximas actividades</a>
+					</p>
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#/tab/misActividades">Mis actividades</a>
+					</p>
+					<div class="list">
+						<div class="item">
+							Participante: {{data.user}}
+						</div>
+						<div class="item">
+							Hermanos/as: (DESACTIVADO)
+						</div>
+					</div>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+
+
+
+
+
+<!-- ####################################################### PROXIMAS ACTIVIDADES ############################################################# -->
+
+		<script id="templates/proximasActividades.html" type="text/ng-template">
+			<ion-view view-title="ACTIVIDADES">
+				<ion-content class="padding" >
+					<ion-list ng-controller="proximasActividades" on-finish-render="ngRepeatFinished" id="id01">
+						<ion-item class="item-divider item-positive">Proximas Actividades</ion-item>
+						<ion-item class="actividades" ng-repeat="x in myData" id="act{{x.id}}" ng-click="comenzar(x.id)" on-finish-render>
+						{{x.id}}: {{x.nombre}}
+						</ion-item>
+						<ion-item class="item-divider item-positive">
+							<p>
+								<a id="home" class="button icon ion-home" ng-href="{{link}}" ng-click="atras()"> INICIO</a>
+								<!--<a class="button icon icon-right ion-chevron-right" href="#/tab/facts2"> MAS ACTIVIDADES</a>-->
+							</p> 
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+
+
+
+
+
+<!-- ####################################################### ACTIVIDADES DETALLADAS ########################################################### -->
+
+		<script id="templates/actividadEspecifica.html" type="text/ng-template">
+			<ion-view view-title="ACTIVIDADES">
+				<ion-content class="padding">
+				 <ion-list ng-controller="actividadEspecifica" on-finish-render="ngRepeatFinished" id="id01">   
+						<ion-item class="item-divider item-positive" ng-repeat="x in especifico" id="act{{x.id}}">{{x.id}}: {{x.nombre}}</ion-item>
+						<ion-item class="actividades"  ng-repeat="x in especifico" id="act{{x.id}}" >
+						<div class="precio">
+						Precio: {{x.precio}}€
+						</div>
+						<div class="fecha">
+						fecha: {{x.fecha}}
+						</div>
+						<div class="contenido">
+						Descripcion: {{x.informacion}}
+						</div>
+						</ion-item>
+						<ion-item class="item-divider item-positive" ><!--ng-controller="cargaCorazon"-->
+							<p>
+								<a id="home" class="button icon ion-home" ng-click="atras()" ng-href="{{link}}" ></a>
+								<!--<a id="atras" class="button icon icon-left ion-chevron-left" href="#/tab/proximasActividades"> ATRAS</a>-->
+								<!--<a id="gustar" ng-repeat="x in especifico" class="button icon ion-heart" ng-init="contador=parseId(x.gustar)" ng-click="contador=cargarcontador(contador); enviarcorazon($scope,$http);" > {{contador}} </a>-->
+								<a id="gustar" class="button icon ion-heart" ng-click="cargarcontador();sendData();"> {{contador}} </a>
+								<!--<input class="button" type="submit" ng-repeat="x in myData" ng-model="data.username" name="submit" value="{{x.gustar}}">
+								<input class="button button_image" type="submit" name="submit" value=" ">-->
+							</p> 
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ####################################################### ACTIVIDADES DETALLADAS ########################################################### -->
+
+		<script id="templates/actividadEspecificaregistrado.html" type="text/ng-template">
+			<ion-view view-title="ACTIVIDADES">
+				<ion-content class="padding">
+				 <ion-list ng-controller="actividadEspecifica" on-finish-render="ngRepeatFinished" id="id01">   
+						<ion-item class="item-divider item-positive" ng-repeat="x in especifico" id="act{{x.id}}">{{x.id}}: {{x.nombre}}</ion-item>
+						<ion-item class="actividades"  ng-repeat="x in especifico" id="act{{x.id}}" >
+						<div class="precio">
+						Precio: {{x.precio}}€
+						</div>
+						<div class="fecha">
+						fecha: {{x.fecha}}
+						</div>
+						<div class="contenido">
+						Descripcion: {{x.informacion}}
+						</div>
+						</ion-item>
+						<ion-item class="item-divider item-positive" ><!--ng-controller="cargaCorazon"-->
+							<p>
+								<a id="home" class="button icon ion-home" ng-click="atras()" ng-href="{{link}}" ></a>
+								<!--<a id="atras" class="button icon icon-left ion-chevron-left" href="#/tab/proximasActividades"> ATRAS</a>-->
+								<!--<a id="gustar" ng-repeat="x in especifico" class="button icon ion-heart" ng-init="contador=parseId(x.gustar)" ng-click="contador=cargarcontador(contador); enviarcorazon($scope,$http);" > {{contador}} </a>-->
+								<a id="gustar" class="button icon ion-heart" ng-click="cargarcontador();sendData();"> {{contador}} </a>
+								<!--<input class="button" type="submit" ng-repeat="x in myData" ng-model="data.username" name="submit" value="{{x.gustar}}">
+								<input class="button button_image" type="submit" name="submit" value=" ">-->
+								<a id="apuntarme" class="button icon ion-ios-personadd" ng-click="apuntar();showAlert();"  ng-show="apuntado()"> APUNTARME</a>
+							</p> 
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+
+
+
+
+
+<!-- ####################################################### INFORMACION ###################################################################### -->
+ 
+		<script id="templates/about.html" type="text/ng-template">
+			<ion-view view-title="INFROMACIÓN">
+				<ion-content class="padding">
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#"> Ludoteca</a>
+					</p>
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#"> Zona Joven</a>
+					</p>
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#"> Campamentos</a>
+					</p>
+					<p>
+						<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#"> Colaboraciones</a>
+					</p>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+ 
+<!-- ####################################################### INFORMACION ###################################################################### -->
+
+		<script id="templates/nav-stack.html" type="text/ng-template">
+			<!--<ion-view view-title="Tab Nav Stack">
+				<ion-content class="padding">
+					<p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
+				</ion-content>
+			</ion-view>-->
+		</script>
+
+<!-- ########################################################################################################################################## -->
+ 
+<!-- ####################################################### CONTACTO ######################################################################### -->
+
+		<script id="templates/contact.html" type="text/ng-template">
+			<ion-view title="CONTACTO">
+				<ion-content>
+					<div class="list">
+						<div class="item">
+							Email: info@ilazkitaldea.com
+						</div>
+						<div class="item">
+							Telefono: 622015862
+						</div>
+						<p/>
+						<div class="item">
+							Cruces: Vista Alegre, 11
+						</div>
+						<div class="item">
+							Retuerto: Retuerto, 10
+						</div>
+						<div class="item">
+							Zuazo: --
+						</div>
+					</div>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+
+
+
+
+
+<!-- ####################################################### PROXIMAS ACTIVIDADES ############################################################# -->
+
+		<script id="templates/misActividades.html" type="text/ng-template">
+			<ion-view view-title="ACTIVIDADES">
+				<ion-content class="padding" >
+					<ion-list ng-controller="misActividades" on-finish-render="ngRepeatFinished" id="id01">
+						<ion-item class="item-divider item-positive">Mis actividades</ion-item>
+						<ion-item class="actividades" ng-repeat="x in respuesta" id="act{{x.id}}" ng-click="comenzar(x.id)" on-finish-render>
+						{{x.id}}: {{x.actividad}}
+						</ion-item>
+						<ion-item class="item-divider item-positive">
+							<p>
+								<a id="home" class="button icon ion-home" ng-href="{{link}}" ng-click="atras()"> INICIO</a>
+								<!--<a class="button icon icon-right ion-chevron-right" href="#/tab/facts2"> MAS ACTIVIDADES</a>-->
+							</p> 
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-view>
+		</script>
+
+<!-- ########################################################################################################################################## -->
+
+
+	</body>
+</html>
+
+
+
+

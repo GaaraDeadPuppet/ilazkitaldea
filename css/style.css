@@ -1,0 +1,42 @@
+/* Empty. Add your own CSS if you like */
+.title{
+	color:black !important;
+}
+
+.pane{
+	background-color: #fddf77;
+}
+
+.actividades{
+	background-color: :red;
+}
+
+.contenido{
+	white-space: pre-line;
+}
+
+.bar-energized .button .boton-negro {
+    color: black;
+}
+
+
+.bar.bar-header {
+  background: rgba(255,255,255,.10);
+  border-bottom-width: 0;
+}
+
+.bar.bar-header h1 {
+  color: black !important;
+}
+
+
+.scroll-content {
+  overflow: visible !important;
+}
+
+.button_image{
+	background-image: url("../img/corazon.png");
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}

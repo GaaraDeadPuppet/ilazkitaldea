@@ -1,0 +1,1 @@
+var arranque=angular.module('arranque',['ionic']);
