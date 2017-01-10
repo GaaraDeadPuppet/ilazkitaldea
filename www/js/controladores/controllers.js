@@ -98,12 +98,16 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
       console.log("borrado");
 
       var user = localStorage.getItem('user');
+      var hermano = localStorage.getItem('hermano');
       var actividad_apuntada = localStorage.getItem('actividad_apuntada');
 
       localStorage.clear();
 
       if (user) {
-        localStorage.setItem('user', user)
+        localStorage.setItem('user', user);
+      }
+      if (hermano) {
+        localStorage.setItem('hermano', hermano);
       }
       if (actividad_apuntada) {
         localStorage.setItem('actividad_apuntada', actividad_apuntada)
@@ -283,7 +287,8 @@ arranque.controller('HomeTabCtrl', function ($scope) {
 
 arranque.controller('homelogedcontrll', function ($scope) {
   $scope.data = ({
-    'user': localStorage.getItem("user")
+    'user': localStorage.getItem("user"),
+    'hermano': localStorage.getItem("hermano")
   });
 })
 
