@@ -98,7 +98,7 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
       console.log("borrado");
 
       var user = localStorage.getItem('user');
-      var hermano = localStorage.getItem('hermano');
+        var hermano = localStorage.getItem('hermano');
       var actividad_apuntada = localStorage.getItem('actividad_apuntada');
 
       localStorage.clear();
