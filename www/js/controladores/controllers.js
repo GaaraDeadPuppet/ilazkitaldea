@@ -338,6 +338,7 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$
 
       console.log($login);
       if ($login == 'OK') {
+        localStorage.setItem("hermano", $hermano);
         $window.location.reload();
       } else {
         localStorage.removeItem("user");
