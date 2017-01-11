@@ -40,6 +40,7 @@ arranque.controller('proximasActividades', function ($scope, $http, $filter, $wi
 
       if (user) {
         localStorage.setItem('user', user)
+        localStorage.setItem('hermano', hermano);
       }
       if (actividad_apuntada) {
         localStorage.setItem('actividad_apuntada', actividad_apuntada)

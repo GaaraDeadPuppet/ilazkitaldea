@@ -1,0 +1,66 @@
+<<<<<<< HEAD:www/css/styles.css
+.title {
+	color: black !important;
+=======
+/* Empty. Add your own CSS if you like */
+.title{
+	color:black !important;
+>>>>>>> parent of 8d687b8... Ordenar:www/css/style.css
+}
+
+.pane {
+	background-color: #fddf77;
+}
+
+<<<<<<< HEAD:www/css/styles.css
+.contenido {
+=======
+.actividades{
+	background-color: :red;
+}
+
+.contenido{
+>>>>>>> parent of 8d687b8... Ordenar:www/css/style.css
+	white-space: pre-line;
+}
+
+.bar-energized .button .boton-negro {
+	color: black;
+}
+
+.bar.bar-header {
+	background: rgba(255, 255, 255, .10);
+	border-bottom-width: 0;
+}
+
+.bar.bar-header h1 {
+	color: black !important;
+}
+
+.scroll-content {
+	overflow: visible !important;
+}
+
+.button_image {
+	background-image: url("../img/corazon.png");
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+label {
+	display: block;
+	padding-left: 15px;
+	text-indent: -15px;
+}
+
+input[type='checkbox'] {
+	width: 13px;
+	height: 13px;
+	padding: 0;
+	margin: 0;
+	vertical-align: bottom;
+	position: relative;
+	top: -1px;
+	*overflow: hidden;
+}
