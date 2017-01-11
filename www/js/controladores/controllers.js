@@ -99,7 +99,7 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
       console.log("borrado");
 
       var user = localStorage.getItem('user');
-        var hermano = localStorage.getItem('hermano');
+      var hermano = localStorage.getItem('hermano');
       var actividad_apuntada = localStorage.getItem('actividad_apuntada');
 
       localStorage.clear();
@@ -249,6 +249,7 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
 
     
     $scope.showAlert = function () {
+<<<<<<< HEAD
       var alertPopup = $ionicPopup.prompt({
         //title: 'Condiciones de uso',
         //template: '<textarea>DECLARO:1.Que todos los datos expresados en esta ficha son ciertos.2.Que autorizo al/ a la menor, a participar en el campamento organizado por ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) y hago extensiva esta autorización en caso de máxima urgencia, con conocimiento y prescripción facultativa, a tomar decisiones medico quirúrgicas oportunas en caso de que mi localización haya sido imposible.3.torizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) la captación de imágenes, tanto en movimiento como estáticas, y sonido, ya su utilización tanto en su página web, blog como en publicaciones de la asociación o cualquierotro fin no lucrativo o de información.4.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a fijar, reproducir, comunicar y a modificar por todo medio técnico las fotografías y vide os realizados en el marco de la presente autorización.5.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a añadir mis datos personales o los de mi representado, como son el nombre y apellidos, dirección postal, dirección de correo electrónico y teléfonos a una base de datos cuyo fines el de informar sobre similares acciones futuras o el envío de una recopilación de imágenes.6.ILAZKI AISIALDI TALDEA prohíbe expresamente, una explotación de las fotografías susceptibles de afectar a la vida privada del/de lamenor, y una difusión en todo soporte de carácter pornográfico, xenófobo, violento o ilícito. De igual manera, la persona ins crita no estávinculada a ningún contrato exclusivo sobre la utilización de su imagen o su nombre.7.ILAZKI AISIALDI TALDEA destruirá los datos personales y los de mi representado legalmente una vez haya finalizado el campamentoo colonias para los que han sido re cogidos.</textarea><form>  <label><input type="checkbox" name="usuarios" value="usuarios"/>Usuarios</label><input type="checkbox" name="hermanos" value="hermanos"/>Hermanos</label></form>',
@@ -270,11 +271,21 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
               checked: false
             }
           ]
+=======
+      var alertPopup = $ionicPopup.confirm({
+        title: 'AUTORIZACIÓN PARA LA PARTICIPACIÓN DEL/A MENOR',
+        template: 'DECLARO:<br/>1.Que todos los datos expresados en esta ficha son ciertos.<br/>2.Que autorizo al/a la menor, a participar en el campamento organizado por ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) y hago extensiva esta autorización en caso de máxima urgencia, con conocimiento y prescripción facultativa, a tomar decisiones medico quirúrgicas oportunas en caso de que mi localización haya sido imposible.<br/>3.torizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) la captación de imágenes, tanto en movimiento como estáticas, y sonido, ya su utilización tanto en su página web, blog como en publicaciones de la asociación o cualquierotro fin no lucrativo o de información.<br/>4.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a fijar, reproducir, comunicar y a modificar por todo medio técnico las fotografías y vide os realizados en el marco de la presente autorización.<br/>5.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a añadir mis datos personales o los de mi representado, como son el nombre y apellidos, dirección postal, dirección de correo electrónico y teléfonos a una base de datos cuyo fines el de informar sobre similares acciones futuras o el envío de una recopilación de imágenes.<br/>6.ILAZKI AISIALDI TALDEA prohíbe expresamente, una explotación de las fotografías susceptibles de afectar a la vida privada del/de lamenor, y una difusión en todo soporte de carácter pornográfico, xenófobo, violento o ilícito. De igual manera, la persona ins crita no estávinculada a ningún contrato exclusivo sobre la utilización de su imagen o su nombre.<br/>7.ILAZKI AISIALDI TALDEA destruirá los datos personales y los de mi representado legalmente una vez haya finalizado el campamentoo colonias para los que han sido re cogidos.',
+        inputType: 'password',
+        inputPlaceholder: 'Your password',
+        inputType: 'checkbox'
+>>>>>>> origin/master
       });
       /*  
       alertPopup.then(function (res) {
         if (res) {
-         $window.location.reload();
+          $window.location.reload();
+        } else {
+          e.preventDefault();
         };
       });
       */
@@ -319,7 +330,7 @@ arranque.controller('homelogedcontrll', function ($scope) {
 //###################################### inicio ###############################################//
 //#############################################################################################//
 
-arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$filter) {
+arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup, $filter) {
 
   $scope.data = {};
 
@@ -354,21 +365,21 @@ arranque.controller('LoginCtrl', function ($scope, $http, $window, $ionicPopup,$
     $http(req).
     success(function (data, status, headers, config) {
       $scope.respuesta = data.records; // assign  $scope.persons here as promise is resolved here 
-      
+
       console.log($scope.respuesta);
       console.log($scope.respuesta[0].login.toString() === 'OK');
       console.log($scope.respuesta[0].login.toString() === 'NO');
 
       console.log($scope.respuesta[0].login);
 
-      $login=$scope.respuesta[0].login;
-      $hermano=$scope.respuesta[0].hermano;
- $usuario=$scope.respuesta[0].nombre;
+      $login = $scope.respuesta[0].login;
+      $hermano = $scope.respuesta[0].hermano;
+      $usuario = $scope.respuesta[0].nombre;
 
       console.log($login);
       if ($login == 'OK') {
         localStorage.setItem("hermano", $hermano);
-         localStorage.setItem('user', $usuario);
+        localStorage.setItem('user', $usuario);
         $window.location.reload();
       } else {
         localStorage.removeItem("user");
