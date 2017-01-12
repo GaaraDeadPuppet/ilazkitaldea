@@ -298,7 +298,7 @@ buttons: [
       { text: '<b>ACEPTAR</b>',
         type: 'button-positive',
         onTap: function(e) {
-          $scope.apuntar("respuestaapuntar")
+          $scope.apuntar();
           $scope.correcto();
 
         }
@@ -319,10 +319,12 @@ buttons: [
       template: '<div ng-controller="homelogedcontrll">'
         +'<text>PARTICIPANTES:<text>'
         +'<div ng-controller="MainCtrl">'
-        +'<input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel()" class="switch-input" ng-true-value="\'{{data.user}}\'">'
+        +'<br/><input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel()" class="input" ng-true-value="\'{{data.user}}\'">'
         //+'<br/><input type="checkbox" ng-model="this.checked" ng-change="testmodel()" ng-true-value="\'APUNTADO\'" ng-false-value="\'NO APUNTADO\'">'
+        +'<text> {{data.user}}</text>'
+        +'<br/><input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel2()" class="input" ng-true-value="\'{{data.hermano}}\'">'
+        +'<text> {{data.hermano}}</text>'
         +'</div>'
-        +'<text>{{data.user}}</text>'
         //+' <text> || {{checkboxModel}}</text>'
        // +'<br/><input type="checkbox" ng-model="checkboxModel.value2"><tt>value1 = {{checkboxModel.value2}}</tt> <text>{{data.hermano}}</text>'
         +'<text></text>'
@@ -344,13 +346,6 @@ buttons: [
     };
 
 
-    
-
-
-
-
-
-
     //CERRAR CARGA
 
     $ionicLoading.hide();
@@ -359,10 +354,15 @@ buttons: [
 });
 
 
+
 arranque.controller('MainCtrl', function($scope) {
   $scope.testmodel = function() {
     $scope.usuario=this.checked;
     console.log($scope.usuario);
+  };
+  $scope.testmodel2 = function() {
+    $scope.segundousuario=this.checked;
+    console.log($scope.segundousuario);
   };
 });
 
