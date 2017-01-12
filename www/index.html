@@ -45,6 +45,10 @@
 	<script id="templates/home.html" type="text/ng-template">
 		<ion-view view-title="ILAZKI TALDEA">
 			<ion-content>
+				<p class="aviso">
+					Debido a cambios recientes en la aplicación, se recomienda borrar todo dato previo ciclando en el botón rojo de salir que encontraras en la parte inferior de esta pagina.
+					|| Última actualizacion: 31/01/2017
+				</p>
 				<p>
 					<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#/tab/proximasActividades">Proximas actividades</a>
 				</p>
@@ -61,12 +65,13 @@
 					<button class="button button-block button-calm" ng-click="login()">IDENTIFICATE</button>
 					<div class="list list-inset">
 						<label class="item item-input">
-									Usuario: Nombre del participante.
+									Usuario: Nº de telefono.
 							</label>
 						<label class="item item-input">
 									Contraseña: Apellido del participante.
 							</label>
 					</div>
+					<button class="button button-block button-assertive" ng-click="borrarcache()">SALIR</button>
 				</div>
 			</ion-content>
 		</ion-view>
@@ -77,6 +82,10 @@
 	<script id="templates/homeregistrado.html" type="text/ng-template">
 		<ion-view view-title="ILAZKI TALDEA" ng-controller="homelogedcontrll">
 			<ion-content>
+				<p class="aviso">
+					Debido a cambios recientes en la aplicación, se recomienda borrar todo dato previo ciclando en el botón rojo de salir que encontraras en la parte inferior de esta pagina. Si ya lo has hecho, ignora este mensaje :)
+					|| Última actualizacion: 31/01/2017
+				</p>
 				<p>
 					<a class="button button-full button-positive icon icon-right ion-chevron-right" href="#/tab/proximasActividades">Proximas actividades</a>
 				</p>
@@ -91,6 +100,7 @@
 						Hermanos/as: {{data.hermano}}
 					</div>
 				</div>
+				<button class="button button-block button-assertive" ng-click="borrarcache()">SALIR</button>
 			</ion-content>
 		</ion-view>
 	</script>

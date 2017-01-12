@@ -50,3 +50,10 @@ input[type='checkbox'] {
 	top: -1px;
 	*overflow: hidden;
 }
+
+.aviso{
+	border: 5px solid red;
+	padding: 2px;
+	background-color: white;
+	text-align: justify;
+}

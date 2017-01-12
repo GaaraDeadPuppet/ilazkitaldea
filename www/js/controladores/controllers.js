@@ -170,7 +170,9 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
     $scope.apuntar = function () {
       console.log("enviados");
 
-      var user = localStorage.getItem("user");;
+      var user = localStorage.getItem("user");
+      var inscripciones = localStorage.getItem("hijo1");
+
       var activity = filtro_actividades;
 
       Object.toparams = function ObjecttoParams(obj) {
@@ -186,7 +188,8 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
         url: "http://www.ilazkitaldea.com/app/php/guardar_inscripcion.php",
         data: {
           'usuario': user,
-          'actividad': activity
+          'actividad': activity,
+          'inscripciones': inscripciones
         },
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -216,6 +219,21 @@ arranque.controller('actividadEspecifica', function ($scope, $http, $filter, $io
       console.log("actividad: " + activity);
       console.log("usuario: " + user);
 
+      var user = localStorage.getItem('user');
+      var hermano = localStorage.getItem('hermano');
+      var actividad_apuntada = localStorage.getItem('actividad_apuntada');
+      var entrada = localStorage.getItem('entry');
+
+      localStorage.clear();
+
+      if (user) {
+        localStorage.setItem('user', user);
+        localStorage.setItem('hermano', hermano);
+      }
+      if (actividad_apuntada) {
+        localStorage.setItem('actividad_apuntada', actividad_apuntada);
+        localStorage.setItem('entry', entrada);
+      }
     };
 
     if (localStorage.getItem('user') && localStorage.getItem("actividad_apuntada")) {
@@ -274,7 +292,8 @@ buttons: [
 
     $scope.confirmacion = function () {
 
-      
+      console.log($scope.roles);
+
       var alertPopup = $ionicPopup.prompt({
         //title: 'Condiciones de uso',
       //template: '<textarea>DECLARO:1.Que todos los datos expresados en esta ficha son ciertos.2.Que autorizo al/ a la menor, a participar en el campamento organizado por ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) y hago extensiva esta autorización en caso de máxima urgencia, con conocimiento y prescripción facultativa, a tomar decisiones medico quirúrgicas oportunas en caso de que mi localización haya sido imposible.3.torizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) la captación de imágenes, tanto en movimiento como estáticas, y sonido, ya su utilización tanto en su página web, blog como en publicaciones de la asociación o cualquierotro fin no lucrativo o de información.4.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a fijar, reproducir, comunicar y a modificar por todo medio técnico las fotografías y vide os realizados en el marco de la presente autorización.5.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a añadir mis datos personales o los de mi representado, como son el nombre y apellidos, dirección postal, dirección de correo electrónico y teléfonos a una base de datos cuyo fines el de informar sobre similares acciones futuras o el envío de una recopilación de imágenes.6.ILAZKI AISIALDI TALDEA prohíbe expresamente, una explotación de las fotografías susceptibles de afectar a la vida privada del/de lamenor, y una difusión en todo soporte de carácter pornográfico, xenófobo, violento o ilícito. De igual manera, la persona ins crita no estávinculada a ningún contrato exclusivo sobre la utilización de su imagen o su nombre.7.ILAZKI AISIALDI TALDEA destruirá los datos personales y los de mi representado legalmente una vez haya finalizado el campamentoo colonias para los que han sido re cogidos.</textarea><form>  <label><input type="checkbox" name="usuarios" value="usuarios"/>Usuarios</label><input type="checkbox" name="hermanos" value="hermanos"/>Hermanos</label></form>',
@@ -311,7 +330,8 @@ buttons: [
 
     $scope.showAlert = function () {
 
-      
+      localStorage.setItem("hijo1", "");
+
       var alertPopup = $ionicPopup.confirm({
         //title: 'Condiciones de uso',
       //template: '<textarea>DECLARO:1.Que todos los datos expresados en esta ficha son ciertos.2.Que autorizo al/ a la menor, a participar en el campamento organizado por ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) y hago extensiva esta autorización en caso de máxima urgencia, con conocimiento y prescripción facultativa, a tomar decisiones medico quirúrgicas oportunas en caso de que mi localización haya sido imposible.3.torizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) la captación de imágenes, tanto en movimiento como estáticas, y sonido, ya su utilización tanto en su página web, blog como en publicaciones de la asociación o cualquierotro fin no lucrativo o de información.4.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a fijar, reproducir, comunicar y a modificar por todo medio técnico las fotografías y vide os realizados en el marco de la presente autorización.5.Autorizo a ILAZKI AISIALDI TALDEA (CIF: G-95817144, calle vista alegre 11, 48903 BARAKALDO) a añadir mis datos personales o los de mi representado, como son el nombre y apellidos, dirección postal, dirección de correo electrónico y teléfonos a una base de datos cuyo fines el de informar sobre similares acciones futuras o el envío de una recopilación de imágenes.6.ILAZKI AISIALDI TALDEA prohíbe expresamente, una explotación de las fotografías susceptibles de afectar a la vida privada del/de lamenor, y una difusión en todo soporte de carácter pornográfico, xenófobo, violento o ilícito. De igual manera, la persona ins crita no estávinculada a ningún contrato exclusivo sobre la utilización de su imagen o su nombre.7.ILAZKI AISIALDI TALDEA destruirá los datos personales y los de mi representado legalmente una vez haya finalizado el campamentoo colonias para los que han sido re cogidos.</textarea><form>  <label><input type="checkbox" name="usuarios" value="usuarios"/>Usuarios</label><input type="checkbox" name="hermanos" value="hermanos"/>Hermanos</label></form>',
@@ -319,11 +339,16 @@ buttons: [
       template: '<div ng-controller="homelogedcontrll">'
         +'<text>PARTICIPANTES:<text>'
         +'<div ng-controller="MainCtrl">'
-        +'<br/><input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel()" class="input" ng-true-value="\'{{data.user}}\'">'
+        /*
+        +'<br/><input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel()" ng-true-value="\'{{data.user}}\'"/>'
         //+'<br/><input type="checkbox" ng-model="this.checked" ng-change="testmodel()" ng-true-value="\'APUNTADO\'" ng-false-value="\'NO APUNTADO\'">'
         +'<text> {{data.user}}</text>'
-        +'<br/><input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel2()" class="input" ng-true-value="\'{{data.hermano}}\'">'
+        +'<br/><input type="checkbox" ng-model=\'this.checked\' ng-change="testmodel2()" ng-true-value="\'{{data.hermano}}\'"/>'
         +'<text> {{data.hermano}}</text>'
+        */
+        +'<label ng-repeat="role in roles">'
+        +'<input type="checkbox" data-checklist-model="user.roles" data-checklist-value="role" ng-model="this.checked" ng-change="checkboxclick()" ng-true-value="\'{{role.text}}\'"> {{role.text}}'
+        +'</label>'
         +'</div>'
         //+' <text> || {{checkboxModel}}</text>'
        // +'<br/><input type="checkbox" ng-model="checkboxModel.value2"><tt>value1 = {{checkboxModel.value2}}</tt> <text>{{data.hermano}}</text>'
@@ -356,6 +381,8 @@ buttons: [
 
 
 arranque.controller('MainCtrl', function($scope) {
+
+  /*
   $scope.testmodel = function() {
     $scope.usuario=this.checked;
     console.log($scope.usuario);
@@ -364,6 +391,21 @@ arranque.controller('MainCtrl', function($scope) {
     $scope.segundousuario=this.checked;
     console.log($scope.segundousuario);
   };
+  */
+  
+
+  $scope.checkboxclick=function(){
+    console.log(this.checked);
+    var apuntados=localStorage.getItem("hijo1");
+    apuntados=apuntados+" - "+this.checked;
+    localStorage.setItem("hijo1", apuntados);
+  }
+
+  $scope.roles = [
+    {id: 1, text: $scope.data.user},
+    {id: 2, text: $scope.data.hermano}
+  ];
+
 });
 
 //#############################################################################################//
@@ -386,11 +428,16 @@ arranque.controller('HomeTabCtrl', function ($scope) {
   console.log('HomeTabCtrl');
 })
 
-arranque.controller('homelogedcontrll', function ($scope) {
+arranque.controller('homelogedcontrll', function ($scope,$window) {
   $scope.data = ({
     'user': localStorage.getItem("user"),
     'hermano': localStorage.getItem("hermano")
   });
+
+  $scope.borrarcache=function(){
+    localStorage.clear();
+    $window.location.reload();
+  }
 })
 
 //#############################################################################################//
